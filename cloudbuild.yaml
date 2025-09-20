@@ -38,3 +38,7 @@ steps:
 
 images:
 - 'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
