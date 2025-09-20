@@ -28,19 +28,19 @@ steps:
   
 
 # Optional: Step 4 Deploy to Cloud Run (only if you want CI + CD)
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: gcloud
-  args:
-    [
-      'run', 'deploy', 'my-app',
-      '--image', 'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
-      '--region', 'asia-south2',
-      '--platform', 'managed',
-      '--allow-unauthenticated'
-    ]
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: gcloud
+#   args:
+#     [
+#       'run', 'deploy', 'my-app',
+#       '--image', 'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
+#       '--region', 'asia-south2',
+#       '--platform', 'managed',
+#       '--allow-unauthenticated'
+#     ]
 
-images:
-- 'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
+# images:
+# - 'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
