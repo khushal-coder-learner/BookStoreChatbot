@@ -1,15 +1,15 @@
 steps:
-# Step 1: Install dependencies
+#Step:1 Install dependencies
 - name: 'python:3.11'
-  entrypoint: pip
-  args: ['install', '-r', 'requirements.txt']
+  entrypoint: /bin/bash
+  args:
+    - '-c'
+    - |
+      pip install -r requirements.txt
+      pytest --maxfail=1 --disable-warnings -q
 
-# Step 2: Run tests (pytest or unittest)
-- name: 'python:3.11'
-  entrypoint: pytest
-  args: ['--maxfail=1', '--disable-warnings', '-q']
 
-# Step 3: Build Docker image
+# Step 2: Build Docker image
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'build', '-t',
@@ -17,14 +17,14 @@ steps:
     '.'
   ]
 
-# Step 4: Push image to Artifact Registry
+# Step 3: Push image to Artifact Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'push',
     'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
   ]
 
-# Optional: Step 5 Deploy to Cloud Run (only if you want CI + CD)
+# Optional: Step 4 Deploy to Cloud Run (only if you want CI + CD)
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
