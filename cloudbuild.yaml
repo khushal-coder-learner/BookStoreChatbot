@@ -1,0 +1,40 @@
+steps:
+# Step 1: Install dependencies
+- name: 'python:3.11'
+  entrypoint: pip
+  args: ['install', '-r', 'requirements.txt']
+
+# Step 2: Run tests (pytest or unittest)
+- name: 'python:3.11'
+  entrypoint: pytest
+  args: ['--maxfail=1', '--disable-warnings', '-q']
+
+# Step 3: Build Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build', '-t',
+    'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
+    '.'
+  ]
+
+# Step 4: Push image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'push',
+    'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
+  ]
+
+# Optional: Step 5 Deploy to Cloud Run (only if you want CI + CD)
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    [
+      'run', 'deploy', 'my-app',
+      '--image', 'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
+      '--region', 'asia-south2 (Delhi)',
+      '--platform', 'managed',
+      '--allow-unauthenticated'
+    ]
+
+images:
+- 'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
