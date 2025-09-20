@@ -1,4 +1,5 @@
 # chatbot.py
+import string 
 
 class BookstoreChatbot:
     def __init__(self):
@@ -31,13 +32,15 @@ class BookstoreChatbot:
         """Handle user queries."""
         user_input = user_input.lower()
 
-        if "hello" in user_input or "hi" in user_input:
+        words = user_input.lower().translate(str.maketrans("", "", string.punctuation)).split()
+        if any(greet in words for greet in ["hello", "hi"]):
             return self.greet()
         elif "recommend" in user_input:
             return self.recommend()
         elif "have" in user_input or "search" in user_input:
             # Extract last word as title guess
-            title = user_input.split()[-1]
+            title = user_input.split()[-1].strip(string.punctuation)
             return self.search_book(title)
         else:
             return "I'm not sure I understand. You can ask me to recommend a book or search for one."
+
