@@ -13,7 +13,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'build', '-t',
-    'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
+    'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
     '.'
   ]
 
@@ -21,7 +21,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'push',
-    'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
+    'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
   ]
 
 # Optional: Step 5 Deploy to Cloud Run (only if you want CI + CD)
@@ -30,14 +30,14 @@ steps:
   args:
     [
       'run', 'deploy', 'my-app',
-      '--image', 'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
-      '--region', 'asia-south2 (Delhi)',
+      '--image', 'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
+      '--region', 'asia-south2',
       '--platform', 'managed',
       '--allow-unauthenticated'
     ]
 
 images:
-- 'asia-south2 (Delhi)-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
+- 'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
