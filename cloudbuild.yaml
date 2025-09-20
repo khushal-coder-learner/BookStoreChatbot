@@ -21,7 +21,8 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'push',
-    'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA'
+    'asia-south2-docker.pkg.dev/bookstore-chatbot-472706/my-repo/my-app:$SHORT_SHA',
+    '.'
   ]
 
 # Optional: Step 4 Deploy to Cloud Run (only if you want CI + CD)
